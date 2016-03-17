@@ -1,8 +1,16 @@
+redis:
+  restart: always
+  image: redis:latest
+  ports:
+    - "6379"
+
 dja:
   dockerfile: Dockerfile
   build: .
   command: python manage.py runserver 0.0.0.0:8000
   volumes:
     - .:/code
-    ports:
+  ports:
     - "80:8000"
+  links:
+    - redis
