@@ -5,18 +5,24 @@
     <title>Chat</title>
 </head>
 <script>
+
     var ws;
 
     function connect() {
+
+        var messages = document.getElementById('messages');
+
         ws = new WebSocket('ws://' + window.location.host + '/chat/');
+
         ws.onopen = function () {
+
+            messages.innerHTML = "";
             log('open')
         };
 
         ws.onmessage = function (e) {
             var message = e.data;
 
-            var messages = document.getElementById('messages');
             messages.innerHTML += message + "<br>";
             messages.scrollTop = 100000000000;
 
