@@ -40,7 +40,6 @@ run_dev:
     - "8000"
   links:
     - redis
-    - migrate
 
 run_prod:
   extends:
