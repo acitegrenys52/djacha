@@ -22,25 +22,6 @@ base:
   volumes:
     - .:/code
 
-run_prod:
-  extends:
-    service: base
-  command: daphne -b 0.0.0.0 -p 8001 djacha.asgi:channel_layer
-  ports:
-    - "8001"
-  links:
-    - nginx
-    - redis
-
-run_dev:
-  extends:
-    service: base
-  command: python manage.py runserver 0.0.0.0:8000
-  ports:
-    - "8000"
-  links:
-    - redis
-
 migrate:
   extends:
     service: base
@@ -51,3 +32,22 @@ test:
     service: base
   command: python manage.py test
 
+run_dev:
+  extends:
+    service: base
+  command: python manage.py runserver 0.0.0.0:8000
+  ports:
+    - "8000"
+  links:
+    - redis
+
+run_prod:
+  extends:
+    service: base
+  command: daphne -b 0.0.0.0 -p 8001 djacha.asgi:channel_layer
+  ports:
+    - "8001"
+  links:
+    - nginx
+    - redis
+    - migrate
