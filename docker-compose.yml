@@ -25,7 +25,7 @@ base:
 run_prod:
   extends:
     service: base
-  command: daphne -b 0.0.0.0 -p 8001 django_project.asgi:channel_layer
+  command: daphne -b 0.0.0.0 -p 8001 djacha.asgi:channel_layer
   ports:
     - "8001"
   links:
